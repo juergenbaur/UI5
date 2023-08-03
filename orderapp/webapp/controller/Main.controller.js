@@ -9,7 +9,26 @@ sap.ui.define([
 
         return Controller.extend("zju.orderapp.controller.Main", {
             onInit: function () {
-
+                alert("onInit Called");
+            },
+            onExit: function () {
+                alert("onExit Called");
+            },
+            onBeforeRendering: function () {
+                alert("onBeforeRendering Called");
+            },
+            onAfterRendering: function () {
+                alert("onAfterRendering Called");
+            },
+            onSearch: function () {
+                alert("onSearch Called");
+            },
+            onSort: function () {
+                alert("onSort Called");
+                this.getView().destro();
+            },
+            onGroup: function () {
+                alert("onGroup Called");
             }
         });
     });
