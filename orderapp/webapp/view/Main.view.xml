@@ -9,7 +9,7 @@
         title="{i18n>title}"
     >
         <content>
-            <Table id="idOrdersTable" items="{/SalesOrderSet}">
+            <Table id="idOrdersTable" items="{/SalesOrderSet}" growing="true" growingThreshold="20">
                 <headerToolbar>
                     <OverflowToolbar>
                         <Title text="{i18n>tableTitle}"/>
