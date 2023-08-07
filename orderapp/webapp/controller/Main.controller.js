@@ -3,12 +3,14 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "zju/orderapp/model/formatter",
     "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator"
+    "sap/ui/model/FilterOperator",
+    "sap/ui/core/Fragment",
+	"sap/ui/model/Sorter"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, Formatter, Filter, FilterOperator) {
+    function (Controller, JSONModel, Formatter, Filter, FilterOperator, Fragment, Sorter) {
         "use strict";
         return Controller.extend("zju.orderapp.controller.Main", {
             formatter: Formatter,
@@ -71,24 +73,83 @@ sap.ui.define([
                 oBinding.filter(oFilters);
             },
             onSort: function () {
-                alert("onSort Called");
-                this.getView().destro();
+                // 1. get current view
+                var oView = this.getView();
+    
+                // 2. load the fragment file
+                if (! this.byId("sortDialog")) {
+                    Fragment.load({
+                        id: oView.getId(),
+                        name: "zju.orderapp.fragment.SortDialog",
+                        controller: this
+                    }).then(function (oDialog) {
+                        // 3. Open dialog
+                        // connet dialog to the root view of componet (models, lifecycle)
+                        oView.addDependent(oDialog);
+                        oDialog.open();
+                    });
+                } else {
+                    this.byId("sortDialog").open();
+                }
+    
+            },
+    
+            onSortDialogConfirm: function (oEvent) {
+                var oSortItem = oEvent.getParameter("sortItem");
+                var sColumnPath = "SalesOrderID";
+                var bDescending = oEvent.getParameter("sortDescending");
+                var aSorters = [];
+    
+                if (oSortItem) {
+                    sColumnPath = oSortItem.getKey();
+                }
+    
+                aSorters.push(new Sorter(sColumnPath, bDescending));
+    
+                var oTable = this.byId("idOrdersTable");
+                var oBinding = oTable.getBinding("items");
+    
+                oBinding.sort(aSorters);
             },
             onGroup: function () {
-                alert("onGroup Called");
-            },
-            // formatStatus
-            formatStatus: function (sValue) {
-                switch (sValue) {
-                    case "C":
-                        return ValueState.Success;
-                    case "P":
-                        return ValueState.Warning;
-                    case "X":
-                        return ValueState.Error;
-                    default:
-                        return ValueState.Information;
+                // 1. get current view
+                var oView = this.getView();
+    
+                // 2. load the fragment file
+                if (!this.byId("groupDialog")) {
+                    Fragment.load({
+                        id: oView.getId(),
+                        name: "zju.orderapp.fragment.GroupDialog",
+                        controller: this
+                    }).then(function (oDialog) {
+                        // 3. Open dialog
+                        // connet dialog to the root view of componet (models, lifecycle)
+                        oView.addDependent(oDialog);
+                        oDialog.open();
+                    });
+                } else {
+                    this.byId("groupDialog").open();
                 }
+            },
+            
+            onGroupDialogConfirm: function (oEvent) {
+                var oSortItem = oEvent.getParameter("groupItem");
+                var sColumnPath = "SalesOrderID";
+                var bDescending = oEvent.getParameter("groupDescending");
+                var aSorters = [];
+                var bGroupEnabled = false;
+    
+                if (oSortItem) {
+                    sColumnPath = oSortItem.getKey();
+                    bGroupEnabled = true;
+                }
+    
+                aSorters.push(new Sorter(sColumnPath, bDescending, bGroupEnabled));
+    
+                var oTable = this.byId("idOrdersTable");
+                var oBinding = oTable.getBinding("items");
+    
+                oBinding.sort(aSorters);
             }
         });
     });
