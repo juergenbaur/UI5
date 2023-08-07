@@ -12,7 +12,7 @@
             <Table id="idOrdersTable" items="{/SalesOrderSet}">
                 <headerToolbar>
                     <OverflowToolbar>
-                        <Title text="{/title}"/>
+                        <Title text="{i18n>tableTitle}"/>
                         <ToolbarSpacer />
                         <SearchField width="20%" search="onSearch" value="{/title}"/>
                         <Button
@@ -47,7 +47,8 @@
 							<ObjectIdentifier title="{SalesOrderID}"/>
 							<Text text="{CustomerName}"/>
 							<ObjectStatus text="{LifecycleStatusDescription}" icon="{ path: 'LifecycleStatus', formatter: '.formatter.statusIndicator'  }" state="{ path: 'LifecycleStatus', formatter: '.formatter.formatStatus' }"/>
-							<ObjectNumber number="{GrossAmount}" unit="{CurrencyCode}"/>
+							<ObjectNumber number="{ parts: [{ path: 'GrossAmount' }, { path: 'CurrencyCode' }], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: false } }"
+											unit="{CurrencyCode}"/>
 						</cells>
                     </ColumnListItem>
                 </items>
