@@ -101,7 +101,7 @@
             },
             "routes": [
                 {
-                    "name": "RouteMain",
+                    "name": "Main",
                     "pattern": ":?query:",
                     "target": [
                         "TargetMain"
