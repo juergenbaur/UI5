@@ -5,12 +5,13 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/core/Fragment",
-	"sap/ui/model/Sorter"
+	"sap/ui/model/Sorter",
+    "sap/ui/core/UIComponent"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, Formatter, Filter, FilterOperator, Fragment, Sorter) {
+    function (Controller, JSONModel, Formatter, Filter, FilterOperator, Fragment, Sorter, UIComponent) {
         "use strict";
         return Controller.extend("zju.orderapp.controller.Main", {
             formatter: Formatter,
@@ -150,6 +151,15 @@ sap.ui.define([
                 var oBinding = oTable.getBinding("items");
     
                 oBinding.sort(aSorters);
+            },
+            onPressItem: function(oEvent) {
+                var oRouter = UIComponent.getRouterFor(this);
+                var oItem = oEvent.getSource();
+                
+                oRouter.navTo("Details", {
+                    SalesOrderID: oItem.getBindingContext().getObject().SalesOrderID
+                });
+                  
             }
         });
     });
