@@ -1,5 +1,5 @@
 ## SAPUI5 TUTORIAL FOR BEGINNERS - PART 4 - HOMEPAGE, TABLE, AND AGGREGATIONS
-https://www.youtube.com/watch?v=eqIh4EBnF6E&list=PLa2k-46pa1NepjWHSrWeN74x_QgRjyt-B&index=4
+https://www.youtube.com/watch?v=eqIh4EBnF6E&list=PLa2k-46pa1NepjWHSrWeN74x_QgRjyt-B&index=9
 
 
 ## Application Details

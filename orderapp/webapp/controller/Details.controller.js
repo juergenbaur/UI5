@@ -1,12 +1,13 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent",
-	"sap/ui/core/routing/History"
-], function (Controller, UIComponent, History) {
+	"sap/ui/core/routing/History",
+	"zju/orderapp/model/formatter"
+], function (Controller, UIComponent, History, Formatter) {
 	"use strict";
 
 	return Controller.extend("zju.orderapp.controller.Details", {
-
+		formatter: Formatter,
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
@@ -33,8 +34,10 @@ sap.ui.define([
 		onRouteMatched: function(oEvent) {
 			var sId = oEvent.getParameter("arguments").SalesOrderID;
 			
-			alert(sId);
-			
+//			alert(sId);
+			var sPath = this.getView().getModel().createKey("SalesOrderSet", {SalesOrderID: sId});
+			console.log(sPath);
+			this.getView().bindElement("/"+sPath);
 		}
 
 		/**

@@ -33,7 +33,7 @@ server:
           - path:
             url:
             client:
-          - path: /sap
+          - path: /sap/opu/odata/iwbep/GWSAMPLE_BASIC/
             url: https://sapes5.sapdevcenter.com
             client: '002'
             destination: SAP_Gateway
