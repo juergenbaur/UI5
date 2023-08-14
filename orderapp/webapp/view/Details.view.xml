@@ -11,6 +11,9 @@
 	<ObjectAttribute text="{path: 'CreatedAt', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' }}"/>
 	<ObjectAttribute text="{Note}"/>
 </ObjectHeader>
+			<List items="{ToLineItems}" headerText="Products">
+				<DisplayListItem label="{ProductID}" value="{Quantity}"/>
+			</List>
 		</content>
 	</Page>
 </mvc:View>
